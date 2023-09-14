@@ -1,8 +1,8 @@
-#include <sys/socket.h>
-#include <netdb.h>
 #include <ifaddrs.h>
+#include <netdb.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/socket.h>
 
 int main() {
   struct ifaddrs *addresses;
@@ -21,9 +21,11 @@ int main() {
 
       char ap[100];
 
-      const int family_size = family == AF_INET ? sizeof(struct sockaddr_in) : sizeof(struct sockaddr_in6);
+      const int family_size = family == AF_INET ? sizeof(struct sockaddr_in)
+                                                : sizeof(struct sockaddr_in6);
 
-      getnameinfo(address->ifa_addr, family_size, ap, sizeof(ap), 0, 0, NI_NUMERICHOST);
+      getnameinfo(address->ifa_addr, family_size, ap, sizeof(ap), 0, 0,
+                  NI_NUMERICHOST);
 
       printf("\t%s\n", ap);
     }
